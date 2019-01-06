@@ -2,7 +2,7 @@
 
 public class Gaze : MonoBehaviour
 {
-    public SpriteRenderer gazeTimerIndicator;
+    public GameObject gazeTimerIndicator;
     public float gazeTimerIndicatorSize;
 
     private GameObject lastHit;
