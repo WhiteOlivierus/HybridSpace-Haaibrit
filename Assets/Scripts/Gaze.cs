@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Gaze : MonoBehaviour
 {
     public SpriteRenderer gazeTimerIndicator;
+    public float gazeTimerIndicatorSize;
 
     private GameObject lastHit;
     private bool gazing = false;
@@ -15,8 +14,8 @@ public class Gaze : MonoBehaviour
         int layerMask = 1 << 9;
 
         RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(transform.forward), out hit, Mathf.Infinity, layerMask))
+        Debug.DrawRay(transform.position, transform.forward * 100f, Color.blue);
+        if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMask))
         {
             if (lastHit != null)
             {
@@ -29,12 +28,11 @@ public class Gaze : MonoBehaviour
             if (lastHit.tag == "gazeable")
             {
                 gazing = true;
-                Debug.DrawRay(transform.position, transform.TransformDirection(transform.forward) * hit.distance, Color.blue);
-                Debug.Log("Did Hit");
+                Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.blue);
+                // Debug.Log("Did Hit");
                 if (gazeTimer >= 2f)
                 {
                     lastHit.GetComponent<IGazeInterface>().GazeMethod();
-                    // lastHit.gameObject.GetComponent<Renderer>().material.color = Color.red;
                 }
             }
         }
@@ -54,20 +52,28 @@ public class Gaze : MonoBehaviour
         if (gazing)
         {
             gazeTimer += 2f / 60f;
-            gazeTimerIndicator.color = new Color(gazeTimerIndicator.color.r,
-                                                gazeTimerIndicator.color.g,
-                                                gazeTimerIndicator.color.b,
-                                                gazeTimer / 2f
-                                                );
+
+            float x = gazeTimerIndicator.transform.localScale.x + (0.1f * gazeTimer);
+            float y = gazeTimerIndicator.transform.localScale.y + (0.1f * gazeTimer);
+
+            print(string.Format("{0} :{1}", x, y));
+
+            Vector3 gazeTimerIndicatorScale = new Vector3(Mathf.Clamp(x, 0.05f, gazeTimerIndicatorSize),
+                                                        Mathf.Clamp(y, 0.05f, gazeTimerIndicatorSize),
+                                                        gazeTimerIndicator.transform.localScale.z);
+
+            print(gazeTimerIndicatorScale);
+
+            if (gazeTimerIndicator)
+                gazeTimerIndicator.transform.localScale = gazeTimerIndicatorScale;
+
         }
         else
         {
             gazeTimer = 0f;
-            gazeTimerIndicator.color = new Color(gazeTimerIndicator.color.r,
-                                    gazeTimerIndicator.color.g,
-                                    gazeTimerIndicator.color.b,
-                                    0f
-                                    );
+
+            if (gazeTimerIndicator)
+                gazeTimerIndicator.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
         }
     }
 }
