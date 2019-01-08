@@ -8,6 +8,12 @@ public class Gaze : MonoBehaviour
     private GameObject lastHit;
     private bool gazing = false;
     private float gazeTimer = 0f;
+    private float baseGazeTimerIndicatorSize;
+
+    void Start()
+    {
+        baseGazeTimerIndicatorSize = gazeTimerIndicator.transform.localScale.x;
+    }
 
     void Update()
     {
@@ -53,13 +59,14 @@ public class Gaze : MonoBehaviour
         {
             gazeTimer += 2f / 60f;
 
-            float x = gazeTimerIndicator.transform.localScale.x + (0.1f * gazeTimer);
-            float y = gazeTimerIndicator.transform.localScale.y + (0.1f * gazeTimer);
+            float x = gazeTimerIndicator.transform.localScale.x + (baseGazeTimerIndicatorSize * gazeTimer);
+            float y = gazeTimerIndicator.transform.localScale.y + (baseGazeTimerIndicatorSize * gazeTimer);
+            // gazeTimerIndicator.GetComponent<Material>().renderQueue = qeue;
 
             print(string.Format("{0} :{1}", x, y));
 
-            Vector3 gazeTimerIndicatorScale = new Vector3(Mathf.Clamp(x, 0.05f, gazeTimerIndicatorSize),
-                                                        Mathf.Clamp(y, 0.05f, gazeTimerIndicatorSize),
+            Vector3 gazeTimerIndicatorScale = new Vector3(Mathf.Clamp(x, baseGazeTimerIndicatorSize, gazeTimerIndicatorSize),
+                                                        Mathf.Clamp(y, baseGazeTimerIndicatorSize, gazeTimerIndicatorSize),
                                                         gazeTimerIndicator.transform.localScale.z);
 
             print(gazeTimerIndicatorScale);
@@ -73,7 +80,7 @@ public class Gaze : MonoBehaviour
             gazeTimer = 0f;
 
             if (gazeTimerIndicator)
-                gazeTimerIndicator.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
+                gazeTimerIndicator.transform.localScale = new Vector3(baseGazeTimerIndicatorSize, baseGazeTimerIndicatorSize, gazeTimerIndicator.transform.localScale.z);
         }
     }
 }

@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/CustomVR.unity
-    guid: 16fdcd1aaeb17fe4ab42f023e22523ae
   - enabled: 0
-    path: Assets/Scenes/CardboardVR.unity
-    guid: 9981e70487416334994137ef6bce52cc
+    path: Assets/Scenes/FarmCustom.unity
+    guid: caa900f55a0f3a54dbc4cd7abf600fad
+  - enabled: 0
+    path: Assets/Scenes/FarmCardboard.unity
+    guid: 1104d6293d6bfe24ab2b4c95679f9cc1
+  - enabled: 1
+    path: Assets/Scenes/FarmCustom 1.unity
+    guid: f34618ef642be134fb55c8a94d15dd7d
   m_configObjects: {}
