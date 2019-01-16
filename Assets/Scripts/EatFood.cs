@@ -1,18 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EatFood : MonoBehaviour
+public class EatFood : MonoBehaviour, IGazeInterface
 {
-    // Start is called before the first frame update
-    void Start()
+    public void GazeMethod()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Destroy(gameObject);
     }
 }

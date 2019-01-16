@@ -20,12 +20,12 @@ public class Gaze : MonoBehaviour
         int layerMask = 1 << 9;
 
         RaycastHit hit;
-        Debug.DrawRay(transform.position, transform.forward * 100f, Color.blue);
+        // Debug.DrawRay(transform.position, transform.forward * 100f, Color.blue);
         if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMask))
         {
             if (lastHit != null)
             {
-                lastHit.gameObject.GetComponent<Renderer>().material.color = Color.white;
+                // lastHit.GetComponent<IGazeInterface>().EndGaze();
                 lastHit = null;
             }
 
@@ -34,7 +34,7 @@ public class Gaze : MonoBehaviour
             if (lastHit.tag == "gazeable")
             {
                 gazing = true;
-                Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.blue);
+                // Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.blue);
                 // Debug.Log("Did Hit");
                 if (gazeTimer >= 2f)
                 {
@@ -63,13 +63,13 @@ public class Gaze : MonoBehaviour
             float y = gazeTimerIndicator.transform.localScale.y + (baseGazeTimerIndicatorSize * gazeTimer);
             // gazeTimerIndicator.GetComponent<Material>().renderQueue = qeue;
 
-            print(string.Format("{0} :{1}", x, y));
+            // print(string.Format("{0} :{1}", x, y));
 
             Vector3 gazeTimerIndicatorScale = new Vector3(Mathf.Clamp(x, baseGazeTimerIndicatorSize, gazeTimerIndicatorSize),
                                                         Mathf.Clamp(y, baseGazeTimerIndicatorSize, gazeTimerIndicatorSize),
                                                         gazeTimerIndicator.transform.localScale.z);
 
-            print(gazeTimerIndicatorScale);
+            // print(gazeTimerIndicatorScale);
 
             if (gazeTimerIndicator)
                 gazeTimerIndicator.transform.localScale = gazeTimerIndicatorScale;

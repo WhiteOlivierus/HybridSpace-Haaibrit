@@ -7,6 +7,10 @@ public class HeadTracking : MonoBehaviour
     private int initialOrientationY;
     private int initialOrientationZ;
 
+    public bool x;
+    public bool y;
+    public bool z;
+
     void Start()
     {
         Input.gyro.enabled = true;
@@ -19,6 +23,8 @@ public class HeadTracking : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(initialOrientationX - Input.gyro.rotationRateUnbiased.x, initialOrientationY - Input.gyro.rotationRateUnbiased.y, initialOrientationZ + Input.gyro.rotationRateUnbiased.z);
+        transform.Rotate(x ? initialOrientationX - Input.gyro.rotationRateUnbiased.x : 0f,
+                        y ? initialOrientationY - Input.gyro.rotationRateUnbiased.y : 0f,
+                        z ? initialOrientationZ + Input.gyro.rotationRateUnbiased.z : 0f);
     }
 }
